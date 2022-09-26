@@ -3,8 +3,8 @@ import { Route, Link, Switch } from 'react-router-dom';
 import Home from './Components/Home';
 import OrderForm from "./Components/OrderForm";
 import * as yup from 'yup';
-import schema from './Validation/formSchema'
-
+import schema from './Validation/formSchema';
+import axios from "axios";
 
 // ~~~ A homepage that has a "/" route and links to your form (button, nav bar, or any other type of link is acceptable but must have an id of "order-pizza")
 
@@ -48,16 +48,24 @@ const [ order, setOrder ] = useState({initialOrder});
 
 const [orderError, setOrderError] = useState('');
 
-const [ disabled, setDisabled ] = useState(initialDisabled)
+const [ disabled, setDisabled ] = useState(initialDisabled);
 
+const getOrder = () => {
+  axios.get('http://buddies.com/api/friends')
+    .then(res => {
+      setOrder(res.data);
+    })
+    .catch(err => console.error(err))
+}
 
 const postNewOrder = newOrder => {
-  console.log(`you forgot to post new order... ding dong!!`, newOrder)
-  // .then(res => {
-    // console.log(res);
-  // })
-  // .catch(err => console.error(err))
-  // .finally(() => setOrder(initialOrder))
+  axios.post('http://buddies.com/api/friends')
+    .then(res => {
+      console.log(console.log(`Results for New Order`, res))
+      setOrder([ res.data, ...order ]);
+    })
+    .catch(err => console.error(err))
+    .finally(() => setOrder(initialOrder))
 }
 
   const validate = (name, value) => {
@@ -98,6 +106,12 @@ const postNewOrder = newOrder => {
 
     }
     postNewOrder(newOrder);
+    return (
+      <div>
+        <h1>This Page Confirms your Order</h1>
+        <p>{order}</p>
+      </div>
+    )
   }
 
   useEffect(() => {

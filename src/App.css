@@ -1,26 +1,49 @@
-.App {
-  /* display: flex;
-  flex-direction: column;
-  justify-content: center; */
-  text-align: center;
+button {
+  width: 10%;
+  height: 5%;
+  border-style: outset;
+  background-color: #61dafb;
+  color: black;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+button:hover {
+  background-color: pink;
 }
 
-#order-pizza h1 { 
+.constant-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  height: 10%;
+  border: 1px solid red;
+}
+
+.nav-links {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding-right: 5%;
+}
+
+.home-page { 
+  width: 90%;
+  height: 30%;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-.home-image {
-  
-  width:100%;
-  max-height:30%;
-  border-bottom: 1ps solid black ;
+
+
+.home-title {
+  margin: 5%;
+  padding: 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .toppings {
@@ -32,32 +55,3 @@
 
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
