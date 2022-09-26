@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Route, Link, Switch } from 'react-router-dom';
 import Home from './Components/Home';
 import OrderForm from "./Components/OrderForm";
-import Confirmation from './Components/ConfirmationPage';
+// import Confirmation from './Components/ConfirmationPage';
 import * as yup from 'yup';
 import schema from './Validation/formSchema';
 import axios from "axios";
@@ -160,7 +160,7 @@ const postNewOrder = newOrder => {
           </div>
         </nav>
 
-      <Confirmation details={order} />
+      {/* <Confirmation details={order} /> */}
 
     </div>
   );
