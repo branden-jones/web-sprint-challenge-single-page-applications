@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Route, Link, Switch } from 'react-router-dom';
 import Home from './Components/Home';
 import OrderForm from "./Components/OrderForm";
+import Confirmation from './Components/ConfirmationPage';
 import * as yup from 'yup';
 import schema from './Validation/formSchema';
 import axios from "axios";
@@ -50,19 +51,19 @@ const [orderError, setOrderError] = useState('');
 
 const [ disabled, setDisabled ] = useState(initialDisabled);
 
-const getOrder = () => {
-  axios.get('http://buddies.com/api/friends')
-    .then(res => {
-      setOrder(res.data);
-    })
-    .catch(err => console.error(err))
-}
+// const getOrder = () => {
+//   axios.get('http://buddies.com/api/friends')
+//     .then(res => {
+//       setOrder(res.data);
+//     })
+//     .catch(err => console.error(err))
+// }
 
 const postNewOrder = newOrder => {
-  axios.post('http://buddies.com/api/friends')
+  axios.post('https://reqres.in/api/users', newOrder)
     .then(res => {
       console.log(console.log(`Results for New Order`, res))
-      setOrder([ res.data, ...order ]);
+      setOrder([ ...order, res.data ]);
     })
     .catch(err => console.error(err))
     .finally(() => setOrder(initialOrder))
@@ -87,11 +88,11 @@ const postNewOrder = newOrder => {
 
   const orderSubmit = () => {
     const newOrder = {
-    name: order.name.trim(),
-    crust: order.crust.trim(),
-    sauce: order.sauce.trim(),
-    cheese: order.cheese.trim(),
-    size: order.size.trim(),
+    name: order.name,
+    crust: order.crust,
+    sauce: order.sauce,
+    cheese: order.cheese,
+    size: order.size,
     toppings: [
       'noTop',
       'pepperoni',
@@ -116,9 +117,9 @@ const postNewOrder = newOrder => {
 
   useEffect(() => {
     schema.isValid(order).then(valid => setDisabled(!valid))
-  }, [order])
+  }, [order]) 
 
-  return (
+  return order === initialOrder ? ( 
     <div>
         <nav className="constant-header">
           <h1>Lambda Eats</h1>
@@ -145,6 +146,22 @@ const postNewOrder = newOrder => {
         </Route>
 
       </Switch>
+    
+      
+     
+    </div>
+  ) : ( 
+    <div>
+        <nav className="constant-header">
+          <h1>Lambda Eats</h1>
+          <div className="nav-links">
+            <Link to='/'>Home</Link>
+            <Link to='/pizza'>Order Some Pizza</Link>
+          </div>
+        </nav>
+
+      <Confirmation details={order} />
+
     </div>
   );
 };

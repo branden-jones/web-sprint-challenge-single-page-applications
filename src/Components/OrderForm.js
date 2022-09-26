@@ -11,14 +11,17 @@ export default function OrderForm(props) {
     } = props
 
     const onSubmit = event => {
+        
         event.preventDefault();
         submit();
+        console.log(`Submit`, event);
     }
 
     const onChange = event => {
         const { name, value, checked, type } = event.target
         const valueToUse = type === 'checkbox' ? checked : value
         change(name, valueToUse)
+        console.log(`onChange`, event)
     }
 
     return (
