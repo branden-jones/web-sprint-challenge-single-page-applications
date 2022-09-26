@@ -160,7 +160,7 @@ const postNewOrder = newOrder => {
           </div>
         </nav>
 
-      {/* <Confirmation details={order} /> */}
+      {order}
 
     </div>
   );
