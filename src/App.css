@@ -10,6 +10,13 @@ button:hover {
   background-color: pink;
 }
 
+.error {
+  color: red;
+  border: 5px, solid red;
+  margin: 5%;
+
+}
+
 .constant-header {
   display: flex;
   flex-direction: row;
@@ -17,13 +24,12 @@ button:hover {
   align-items: center;
   width: 90%;
   height: 10%;
-  border: 1px solid red;
 }
 
 .nav-links {
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: space-between;
   padding-right: 5%;
 }
 

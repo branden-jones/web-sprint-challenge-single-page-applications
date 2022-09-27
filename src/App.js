@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Route, Link, Switch } from 'react-router-dom';
 import Home from './Components/Home';
 import OrderForm from "./Components/OrderForm";
-import Confirmation from './Components/Confirmation';
+// import Confirmation from './Components/Confirmation';
 import * as yup from 'yup';
 import schema from './Validation/formSchema';
 import axios from "axios";
@@ -46,7 +46,7 @@ const initialDisabled = true;
 
 const App = () => {
 
-const [ order, setOrder ] = useState({initialOrder});
+const [ order, setOrder ] = useState(initialOrder);
 
 const [orderError, setOrderError] = useState('');
 
@@ -85,33 +85,20 @@ const [ disabled, setDisabled ] = useState(initialDisabled);
       [name]: value
     })
   }
-  // return (
-  //   <div>
-  //     <h1>Thanks {order.name} for your Order</h1>
-  //     <p>{order.size}</p>
-  //     <p>{order.crust}</p>
-  //     <p>{order.sauce}</p>
-  //     <p>{order.cheese}</p>
-  //     <p>{order.toppings}</p>
-  //     <p>{order.special}</p>
-  //   </div>
-    // )
-
-
 
   const orderSubmit = () => {
+    
     const postNewOrder = () => {
       axios.post('https://reqres.in/api/orders')
-        .then(res => {
-          console.log(`Results for New Order`, res )
-          // setOrder(res);
-          
-        })
-        .catch(err => console.error(err))
-        .finally(() => console.log(`we're fooped cause i have no idea why this isnt working`))
-      
-}
-
+      .then(res => {
+        console.log(`Results for New Order`, res )
+        // setOrder(res);
+        
+      })
+    
+    .catch(err => console.error(err))
+    .finally(() => console.log(`we're fooped cause i have no idea why this isnt working`))
+    }
     const newOrder = {
     name: order.name,
     crust: order.crust,
@@ -144,13 +131,12 @@ const [ disabled, setDisabled ] = useState(initialDisabled);
           <h1>Lambda Eats</h1>
           <div className="nav-links">
             <Link to='/'>Home</Link>
-            <Link to='/pizza'>Order Some Pizza</Link>
+            <Link to='/pizza'>Order Pizza</Link>
           </div>
         </nav>
-      { orderError && <p>{orderError}</p>}
+
       <Switch>
-        {/* { order && < Confirmation order={order} /> } */}
-        <Route path='/pizza' id='pizza-form'>
+        <Route path='/pizza'>
           <OrderForm
             change={inputChange}
             values={order}
@@ -160,7 +146,7 @@ const [ disabled, setDisabled ] = useState(initialDisabled);
              />
         </Route>
 
-        <Route path='/' id='order-pizza'>
+        <Route exact path='/' id='order-pizza'>
           <Home />
         </Route>
 

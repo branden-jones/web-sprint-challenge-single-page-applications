@@ -1,6 +1,7 @@
 import React from "react";
 
 
+
 export default function OrderForm(props) {
 
     const {
@@ -26,11 +27,12 @@ export default function OrderForm(props) {
 
     return (
         <div>
+
             <div className="constant-header">
                 <h2>Build Your Own Pizza</h2>
                 <img className='page-image' src='https://www.rayspizza.com/wp-content/uploads/2019/10/sausage-pizza.jpg' alt='mouth-watering pizza' />
             </div>
-                <form id="pizza-form" onSubmit={onSubmit}>
+                <form onSubmit={onSubmit} id='pizza-form'>
                     <div className="orderCardContainer">
                         <h2>Build Your Own Pizza!</h2>
 
