@@ -1,5 +1,6 @@
 import React from "react";
 
+
 export default function OrderForm(props) {
 
     const {
@@ -14,14 +15,14 @@ export default function OrderForm(props) {
         
         event.preventDefault();
         submit();
-        console.log(`Submit`, event);
+        // console.log(`Submit`, event);
     }
 
     const onChange = event => {
         const { name, value, checked, type } = event.target
         const valueToUse = type === 'checkbox' ? checked : value
         change(name, valueToUse)
-        console.log(`onChange`, event)
+        // console.log(`onChange`, event)
     }
 
     return (
@@ -44,9 +45,9 @@ export default function OrderForm(props) {
                                 value={values.size}
                                 name='size'
                             >
-                                <option value='16in'> 16 Inch </option>
+                                <option value=''>**** Select Size ****</option>
                                 <option value='medium'> 12 Inch </option>
-                                <option value='small'> 8 Inch </option>
+                                <option value='16in'> 16 Inch </option>
                                 <option value='extra large'> 64 Inch Party Pizza </option>
                             </select>
                         </label>
@@ -66,6 +67,7 @@ export default function OrderForm(props) {
                                 value={values.crust}
                                 name='crust'
                             >
+                                <option value=''>**** Select Dough ****</option>
                                 <option value='hand-tossed'> Hand Tossed </option>
                                 <option value='thin-crust'> Thin Crust </option>
                                 <option value='gluten-freen'> Gluten Free </option>
@@ -78,6 +80,7 @@ export default function OrderForm(props) {
                                 value={values.sauce}
                                 name='sauce'
                             >
+                                <option value=''>**** Select Sauce ****</option>
                                 <option value='tomato'> Tomato </option>
                                 <option value='alfredo'> Alfredo </option>
                                 <option value='pesto'> Pesto </option>
@@ -91,6 +94,7 @@ export default function OrderForm(props) {
                                 value={values.cheese}
                                 name='cheese'
                             >
+                                <option value=''>**** Select Cheese ****</option>
                                 <option value='regular'> Shredded Mozarella </option>
                                 <option value='double'> Double Moz </option>
                                 <option value='none'> None </option>

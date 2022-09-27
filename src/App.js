@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Route, Link, Switch } from 'react-router-dom';
 import Home from './Components/Home';
 import OrderForm from "./Components/OrderForm";
-// import Confirmation from './Components/ConfirmationPage';
+// import Confirmation from './Components/Confirmation';
 import * as yup from 'yup';
 import schema from './Validation/formSchema';
 import axios from "axios";
@@ -23,10 +23,10 @@ import axios from "axios";
 
 const initialOrder = {
   name: '',
-  crust: 'hand-tossed',
-  sauce: 'tomato/marinara',
-  cheese: 'regular',
-  size: '16in',
+  crust: '',
+  sauce: '',
+  cheese: '',
+  size: '',
   noTop: false,
   pepperoni: false,
   onion: false,
@@ -51,40 +51,52 @@ const [orderError, setOrderError] = useState('');
 
 const [ disabled, setDisabled ] = useState(initialDisabled);
 
-// const getOrder = () => {
-//   axios.get('http://buddies.com/api/friends')
-//     .then(res => {
-//       setOrder(res.data);
-//     })
-//     .catch(err => console.error(err))
-// }
 
-const postNewOrder = newOrder => {
-  axios.post('https://reqres.in/api/orders', newOrder)
+
+
+
+
+const postNewOrder = () => {
+  axios.post('https://reqres.in/api/orders')
     .then(res => {
-      console.log(console.log(`Results for New Order`, res))
-      setOrder([ ...order, res.data ]);
+      console.log(console.log(`Results for New Order`, res ))
+      setOrder(res);
+      return (
+        <div>
+          <h1>Thanks {order.name} for your Order</h1>
+          <p>{order.size}</p>
+          <p>{order.crust}</p>
+          <p>{order.sauce}</p>
+          <p>{order.cheese}</p>
+          <p>{order.toppings}</p>
+          <p>{order.special}</p>
+        </div>
+        )
     })
     .catch(err => console.error(err))
     .finally(() => setOrder(initialOrder))
 }
 
+
+
+
   const validate = (name, value) => {
-    yup.reach(schema,name)
+    yup.reach(schema, name)
       .validate(value)
       .then(() => setOrderError({
-        // console.log(`results`, res);
         ...orderError, [name]: ''}))
       .catch(err => setOrderError({ ...orderError, [name]: err.errors[0]}))
   }
 
   const inputChange = (name, value) => {
     validate(name,value);
-    setOrder({
-      ...order,
+    setOrder({ ...order ,
       [name]: value
     })
   }
+
+
+
 
   const orderSubmit = () => {
     const newOrder = {
@@ -104,22 +116,14 @@ const postNewOrder = newOrder => {
       'everything'
     ].filter(top => !!order[top]),
     special: order.special
-
     }
     postNewOrder(newOrder);
-    return (
-      <div>
-        <h1>This Page Confirms your Order</h1>
-        <p>{order}</p>
-      </div>
-    )
   }
 
-  useEffect(() => {
-    schema.isValid(order).then(valid => setDisabled(!valid))
-  }, [order]) 
+    schema.isValid(order)
+      .then(valid => setDisabled(!valid))
 
-  return order === initialOrder ? ( 
+  return  ( 
     <div>
         <nav className="constant-header">
           <h1>Lambda Eats</h1>
@@ -145,24 +149,8 @@ const postNewOrder = newOrder => {
           <Home />
         </Route>
 
-      </Switch>
-    
-      
-     
+      </Switch>  
     </div>
-  ) : ( 
-    <div>
-        <nav className="constant-header">
-          <h1>Lambda Eats</h1>
-          <div className="nav-links">
-            <Link to='/'>Home</Link>
-            <Link to='/pizza'>Order Some Pizza</Link>
-          </div>
-        </nav>
-
-      {order}
-
-    </div>
-  );
+  )
 };
 export default App;
