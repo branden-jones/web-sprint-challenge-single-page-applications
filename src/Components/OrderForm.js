@@ -6,25 +6,21 @@ export default function OrderForm(props) {
 
     const {
         change,
+        onCheckboxChange,
         values,
         error,
         submit,
         disabled,
     } = props
 
-    const onSubmit = event => {
-        event.preventDefault();
-        submit();
-        // console.log(`Submit`, event);
-    }
 
-    const onChange = event => {
-        const { name, value, checked, type } = event.target
-        const valueToUse = type === 'checkbox' ? checked : value
-        change(name, valueToUse)
-        // console.log(`onChange`, event)
-    }
+    // const onChange = event => {
+    //     const { name, value, checked, type } = event.target
+    //     const valueToUse = type === 'checkbox' ? checked : value
+    //     change(name, valueToUse)
+    // }
 
+    
     return (
         <div>
 
@@ -32,7 +28,7 @@ export default function OrderForm(props) {
                 <h2>Build Your Own Pizza</h2>
                 <img className='page-image' src='https://www.rayspizza.com/wp-content/uploads/2019/10/sausage-pizza.jpg' alt='mouth-watering pizza' />
             </div>
-                <form onSubmit={onSubmit} id='pizza-form'>
+                <form onSubmit={submit} id='pizza-form'>
                     <div className="orderCardContainer">
                         <h2>Build Your Own Pizza!</h2>
 
@@ -40,31 +36,33 @@ export default function OrderForm(props) {
                             <div>{error.name}</div>
                         </div>
 
-                        <label className="section-title" id='size-dropdown'>Size
+                        <label className="section-title">Size
                             <select
-                                onChange={onChange}
+                                onChange={change}
                                 value={values.size}
                                 name='size'
+                                id='size-dropdown'
                             >
                                 <option value=''>**** Select Size ****</option>
-                                <option value='medium'> 12 Inch </option>
-                                <option value='16in'> 16 Inch </option>
-                                <option value='extra large'> 64 Inch Party Pizza </option>
+                                <option value='12 Inch'> 12 Inch </option>
+                                <option value='16 Inch'> 16 Inch </option>
+                                <option value='64 Inch'> 64 Inch Party Pizza </option>
                             </select>
                         </label>
 
-                        <label id='name-input' className="section-title">Name
+                        <label className="section-title">Name
                             <input 
                                 value={values.name}
-                                onChange={onChange}
+                                onChange={change}
                                 name='name'
                                 type='text'
+                                id='name-input'
                             />
                         </label>
 
                         <label className="section-title">Crust
                             <select
-                                onChange={onChange}
+                                onChange={change}
                                 value={values.crust}
                                 name='crust'
                             >
@@ -77,7 +75,7 @@ export default function OrderForm(props) {
                         
                         <label className="section-title">Sauce
                             <select
-                                onChange={onChange}
+                                onChange={change}
                                 value={values.sauce}
                                 name='sauce'
                             >
@@ -91,7 +89,7 @@ export default function OrderForm(props) {
                             
                         <label className="section-title">Cheese
                             <select
-                                onChange={onChange}
+                                onChange={change}
                                 value={values.cheese}
                                 name='cheese'
                             >
@@ -108,8 +106,9 @@ export default function OrderForm(props) {
                                 <input 
                                     type='checkbox'
                                     name='noTop'
+                                    onChange={onCheckboxChange}
                                     checked={values.noTop}
-                                    onChange={onChange}
+                                    
                                 />
                             </label>
 
@@ -117,8 +116,9 @@ export default function OrderForm(props) {
                                 <input 
                                     type='checkbox'
                                     name='pepperoni'
+                                    onChange={onCheckboxChange}
                                     checked={values.pepperoni}
-                                    onChange={onChange}
+                                    
                                 />
                             </label>
                             <label>Onion
@@ -126,7 +126,7 @@ export default function OrderForm(props) {
                                     type='checkbox'
                                     name='onion'
                                     checked={values.onion}
-                                    onChange={onChange}
+                                    onChange={onCheckboxChange}
                                 />
                             </label>
                             <label>Spinach
@@ -134,7 +134,7 @@ export default function OrderForm(props) {
                                     type='checkbox'
                                     name='spinach'
                                     checked={values.spinach}
-                                    onChange={onChange}
+                                    onChange={onCheckboxChange}
                                 />
                             </label>
                             <label>Mushroom
@@ -142,7 +142,7 @@ export default function OrderForm(props) {
                                     type='checkbox'
                                     name='mushroom'
                                     checked={values.mushroom}
-                                    onChange={onChange}
+                                    onChange={onCheckboxChange}
                                 />
                             </label>
                             <label>Pineapple
@@ -150,7 +150,7 @@ export default function OrderForm(props) {
                                     type='checkbox'
                                     name='pineapple'
                                     checked={values.pineapple}
-                                    onChange={onChange}
+                                    onChange={onCheckboxChange}
                                 />
                             </label>
                             <label>Sausage
@@ -158,7 +158,7 @@ export default function OrderForm(props) {
                                     type='checkbox'
                                     name='sausage'
                                     checked={values.sausage}
-                                    onChange={onChange}
+                                    onChange={onCheckboxChange}
                                 />
                             </label>
                             <label>Everything
@@ -166,7 +166,7 @@ export default function OrderForm(props) {
                                     type='checkbox'
                                     name='everything'
                                     checked={values.everything}
-                                    onChange={onChange}
+                                    onChange={onCheckboxChange}
                                 />
                             </label>
                         </div>
@@ -174,12 +174,12 @@ export default function OrderForm(props) {
                             <input 
                                 type='text'
                                 name='special'
-                                onChange={onChange}
+                                onChange={change}
                                 value={values.special}
                             />
                         </label>
 
-                        <button disabled={disabled}>Submit your Order</button>
+                        <button id='order-button' disabled={disabled}>Submit your Order</button>
 
                     </div>
                 </form>
