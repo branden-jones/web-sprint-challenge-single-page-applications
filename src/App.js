@@ -60,7 +60,7 @@ const [ disabled, setDisabled ] = useState(initialDisabled);
 // }
 
 const postNewOrder = newOrder => {
-  axios.post('https://reqres.in/api/users', newOrder)
+  axios.post('https://reqres.in/api/orders', newOrder)
     .then(res => {
       console.log(console.log(`Results for New Order`, res))
       setOrder([ ...order, res.data ]);
