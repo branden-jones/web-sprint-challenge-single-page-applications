@@ -27,6 +27,7 @@ const formSchema = yup.object().shape({
     sausage: yup.boolean(),
     everything: yup.boolean(),
     special: yup
+        .string()
         .max(300, `too many characters`),
 })
 

@@ -22,23 +22,23 @@ import './App.css';
 
 // ~~~ An Add to Order button that has an id of "order-button" and that submits form and returns a database record of name, size, toppings and special instructions
 
-// const initialOrder = {
-//   name: '',
-//   crust: '',
-//   sauce: '',
-//   cheese: '',
-//   size: '',
-//   noTop: false,
-//   pepperoni: false,
-//   onion: false,
-//   spinach: false,
-//   mushroom: false,
-//   pineapple: false,
-//   sausage: false,
-//   everything: false,
-//   special: '',
+const initialOrder = {
+  name: '',
+  crust: '',
+  sauce: '',
+  cheese: '',
+  size: '',
+  noTop: false,
+  pepperoni: false,
+  onion: false,
+  spinach: false,
+  mushroom: false,
+  pineapple: false,
+  sausage: false,
+  everything: false,
+  special: '',
 
-// }
+}
 
 const initialDisabled = true;
 
@@ -46,9 +46,9 @@ const initialDisabled = true;
 
 const App = () => {
 
-const [ order, setOrder ] = useState(null);
+const [ order, setOrder ] = useState({initialOrder});
 
-const [orderError, setOrderError] = useState(null);
+const [orderError, setOrderError] = useState('');
 
 const [ disabled, setDisabled ] = useState(initialDisabled);
 
@@ -57,16 +57,16 @@ const [ disabled, setDisabled ] = useState(initialDisabled);
 
 
 
-const postNewOrder = () => {
-  axios.post('https://reqres.in/api/orders')
-    .then(res => {
-      console.log(`Results for New Order`, res )
-      // setOrder(res);
+// const postNewOrder = () => {
+//   axios.post('https://reqres.in/api/orders')
+//     .then(res => {
+//       console.log(`Results for New Order`, res )
+//       // setOrder(res);
       
-    })
-    .catch(err => console.error(err))
-    .finally(() => console.log(`we're fooped cause i have no idea why this isnt working`))
-}
+//     })
+//     .catch(err => console.error(err))
+//     .finally(() => console.log(`we're fooped cause i have no idea why this isnt working`))
+// }
 
 
 
@@ -100,6 +100,18 @@ const postNewOrder = () => {
 
 
   const orderSubmit = () => {
+    const postNewOrder = () => {
+      axios.post('https://reqres.in/api/orders')
+        .then(res => {
+          console.log(`Results for New Order`, res )
+          // setOrder(res);
+          
+        })
+        .catch(err => console.error(err))
+        .finally(() => console.log(`we're fooped cause i have no idea why this isnt working`))
+      
+}
+
     const newOrder = {
     name: order.name,
     crust: order.crust,
@@ -137,8 +149,8 @@ const postNewOrder = () => {
         </nav>
       { orderError && <p>{orderError}</p>}
       <Switch>
-        { order && < Confirmation order={order} /> }
-        <Route path='/pizza' id=''>
+        {/* { order && < Confirmation order={order} /> } */}
+        <Route path='/pizza' id='pizza-form'>
           <OrderForm
             change={inputChange}
             values={order}
@@ -148,7 +160,7 @@ const postNewOrder = () => {
              />
         </Route>
 
-        <Route path='/'>
+        <Route path='/' id='order-pizza'>
           <Home />
         </Route>
 
