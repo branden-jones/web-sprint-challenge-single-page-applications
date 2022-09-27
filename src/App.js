@@ -136,8 +136,8 @@ const [ disabled, setDisabled ] = useState(initialDisabled);
       }
       postNewOrder(newOrder);
 }
-    formSchema.isValid(orders)
-      .then(valid => setDisabled(!valid))
+    // formSchema.isValid(orders)
+    //   .then(valid => setDisabled(!valid))
 
   return  ( 
     <div>
