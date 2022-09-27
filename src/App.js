@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Route, Link, Switch } from 'react-router-dom';
 import Home from './Components/Home';
 import OrderForm from "./Components/OrderForm";
-// import Confirmation from './Components/Confirmation';
+import Confirmation from './Components/Confirmation';
 import * as yup from 'yup';
 import schema from './Validation/formSchema';
 import axios from "axios";
+import './App.css';
 
 // ~~~ A homepage that has a "/" route and links to your form (button, nav bar, or any other type of link is acceptable but must have an id of "order-pizza")
 
@@ -21,23 +22,23 @@ import axios from "axios";
 
 // ~~~ An Add to Order button that has an id of "order-button" and that submits form and returns a database record of name, size, toppings and special instructions
 
-const initialOrder = {
-  name: '',
-  crust: '',
-  sauce: '',
-  cheese: '',
-  size: '',
-  noTop: false,
-  pepperoni: false,
-  onion: false,
-  spinach: false,
-  mushroom: false,
-  pineapple: false,
-  sausage: false,
-  everything: false,
-  special: '',
+// const initialOrder = {
+//   name: '',
+//   crust: '',
+//   sauce: '',
+//   cheese: '',
+//   size: '',
+//   noTop: false,
+//   pepperoni: false,
+//   onion: false,
+//   spinach: false,
+//   mushroom: false,
+//   pineapple: false,
+//   sausage: false,
+//   everything: false,
+//   special: '',
 
-}
+// }
 
 const initialDisabled = true;
 
@@ -45,9 +46,9 @@ const initialDisabled = true;
 
 const App = () => {
 
-const [ order, setOrder ] = useState({initialOrder});
+const [ order, setOrder ] = useState(null);
 
-const [orderError, setOrderError] = useState('');
+const [orderError, setOrderError] = useState(null);
 
 const [ disabled, setDisabled ] = useState(initialDisabled);
 
@@ -59,22 +60,12 @@ const [ disabled, setDisabled ] = useState(initialDisabled);
 const postNewOrder = () => {
   axios.post('https://reqres.in/api/orders')
     .then(res => {
-      console.log(console.log(`Results for New Order`, res ))
-      setOrder(res);
-      return (
-        <div>
-          <h1>Thanks {order.name} for your Order</h1>
-          <p>{order.size}</p>
-          <p>{order.crust}</p>
-          <p>{order.sauce}</p>
-          <p>{order.cheese}</p>
-          <p>{order.toppings}</p>
-          <p>{order.special}</p>
-        </div>
-        )
+      console.log(`Results for New Order`, res )
+      // setOrder(res);
+      
     })
     .catch(err => console.error(err))
-    .finally(() => setOrder(initialOrder))
+    .finally(() => console.log(`we're fooped cause i have no idea why this isnt working`))
 }
 
 
@@ -94,7 +85,17 @@ const postNewOrder = () => {
       [name]: value
     })
   }
-
+  // return (
+  //   <div>
+  //     <h1>Thanks {order.name} for your Order</h1>
+  //     <p>{order.size}</p>
+  //     <p>{order.crust}</p>
+  //     <p>{order.sauce}</p>
+  //     <p>{order.cheese}</p>
+  //     <p>{order.toppings}</p>
+  //     <p>{order.special}</p>
+  //   </div>
+    // )
 
 
 
@@ -117,7 +118,9 @@ const postNewOrder = () => {
     ].filter(top => !!order[top]),
     special: order.special
     }
-    postNewOrder(newOrder);
+    setOrder(newOrder);
+    console.log(`orderSubmit`, newOrder);
+    postNewOrder(order);
   }
 
     schema.isValid(order)
@@ -132,11 +135,11 @@ const postNewOrder = () => {
             <Link to='/pizza'>Order Some Pizza</Link>
           </div>
         </nav>
-
+      { orderError && <p>{orderError}</p>}
       <Switch>
-       
-        <Route path='/pizza'>
-          <OrderForm 
+        { order && < Confirmation order={order} /> }
+        <Route path='/pizza' id=''>
+          <OrderForm
             change={inputChange}
             values={order}
             error={orderError}
@@ -149,7 +152,8 @@ const postNewOrder = () => {
           <Home />
         </Route>
 
-      </Switch>  
+      </Switch> 
+      
     </div>
   )
 };

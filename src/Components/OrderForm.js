@@ -12,7 +12,6 @@ export default function OrderForm(props) {
     } = props
 
     const onSubmit = event => {
-        
         event.preventDefault();
         submit();
         // console.log(`Submit`, event);
@@ -52,7 +51,7 @@ export default function OrderForm(props) {
                             </select>
                         </label>
 
-                        <label className="section-title">Name
+                        <label id='name-input' className="section-title">Name
                             <input 
                                 value={values.name}
                                 onChange={onChange}
