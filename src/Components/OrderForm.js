@@ -40,7 +40,7 @@ export default function OrderForm(props) {
                             <div>{error.name}</div>
                         </div>
 
-                        <label className="section-title">Size
+                        <label className="section-title" id='size-dropdown'>Size
                             <select
                                 onChange={onChange}
                                 value={values.size}
